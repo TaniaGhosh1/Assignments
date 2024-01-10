@@ -111,7 +111,7 @@ WHERE
     
 -- Q. 08 Calculate the running total of rentals per category, ordered by rental count.
     
-    WITH CategoryRentalCount AS (
+    WITH CategoryRunningcount AS (
     SELECT
         fc.category_id,
         COUNT(r.rental_id) AS rental_count,
@@ -124,13 +124,13 @@ WHERE
         fc.category_id
 )
 SELECT
-    crc.category_id,
-    crc.rental_count,
-    SUM(crc.rental_count) OVER (ORDER BY crc.rental_rank) AS running_total
+    rc.category_id,
+    rc.rental_count,
+    SUM(rc.rental_count) OVER (ORDER BY rc.rental_rank) AS running_total
 FROM
-    CategoryRentalCount crc
+    CategoryRunningcount rc
 ORDER BY
-    crc.rental_rank;
+    rc.rental_rank;
     
     
     
